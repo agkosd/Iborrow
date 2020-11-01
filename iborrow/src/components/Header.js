@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div className="ui secondary pointing menu">
       <Link to="/" className="item">
-        Link to ..
+        <h2>Iborrow App</h2>
       </Link>
 
       <div className="right menu">
