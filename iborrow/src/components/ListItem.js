@@ -13,6 +13,7 @@ class ListItem extends React.Component {
     }
   }
 
+  
   renderInput = ({ input, label, type, meta }) => {
     const className = `field ${meta.touched && meta.error ? "error" : ""}`;
     return (

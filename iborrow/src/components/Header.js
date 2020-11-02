@@ -10,6 +10,7 @@ const Header = () => {
       </Link>
 
       <div className="right menu">
+        <Link className="item"><h3>List Item</h3></Link>
         <Link className="item"><h3>Search Item</h3></Link>
         <GoogleAuth/>
       </div>
