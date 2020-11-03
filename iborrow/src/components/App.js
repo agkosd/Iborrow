@@ -7,6 +7,7 @@ import ListItem from "./ListItem";
 import SearchItem from "./SearchItem";
 import CheckInsurance from "./CheckInsurance";
 import BookSlot from "./BookSlot";
+import Payments from "./Payments";
 
 class App extends React.Component {
   
@@ -17,10 +18,11 @@ class App extends React.Component {
           <div>
             <Header />
             <Route path="/" exact component={Welcome} />
-            <Route path="/form" exact component={ListItem} />
-            <Route path="/search" exact component={SearchItem} />
-            <Route path="/insurance" exact component={CheckInsurance} />
-            <Route path="/book" exact component={BookSlot} />
+            <Route path="/item/new" exact component={ListItem} />
+            <Route path="/item/search" exact component={SearchItem} />
+            <Route path="/item/insurance/:id" exact component={CheckInsurance} />
+            <Route path="/item/book/:id" exact component={BookSlot} />
+            <Route path="/item/payments/:id" exact component={Payments} />
 
 
             {/* <Route path="" exact component={a} />

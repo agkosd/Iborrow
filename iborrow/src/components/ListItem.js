@@ -1,8 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 
 class ListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.lat = "";
+    this.long = "";
+  }
+
   renderError(meta) {
     if (meta.touched && meta.error) {
       return (
@@ -13,15 +18,36 @@ class ListItem extends React.Component {
     }
   }
 
-  
   renderInput = ({ input, label, type, meta }) => {
     const className = `field ${meta.touched && meta.error ? "error" : ""}`;
     return (
       <div className={className}>
         <h3>{label}</h3>
-        <input {...input} type={type} autoComplete="off"/>
+        <input {...input} type={type} autoComplete="off" />
         {this.renderError(meta)}
       </div>
+    );
+  };
+
+  getLat = () => {
+    window.navigator.geolocation.getCurrentPosition(
+      async(position) => {
+        return await position.coords.latitude;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
+  getLong = () => {
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        return position.coords.longitude;
+      },
+      (err) => {
+        console.log(err);
+      }
     );
   };
 
@@ -71,6 +97,7 @@ class ListItem extends React.Component {
           component={this.renderInput}
           type="text"
         />
+
         <button className="ui button primary">Submit</button>
       </form>
     );
@@ -84,7 +111,7 @@ const validate = (formValues) => {
   if (!formValues.name) {
     errors.name = "Please Enter The Name Of The Item";
   }
-  if (d2<d1) {
+  if (d2 < d1) {
     errors.from = "Please Enter Valid Dates";
     errors.till = "Please Enter Valid Dates";
   }
@@ -100,9 +127,7 @@ const validate = (formValues) => {
   return errors;
 };
 
-const formWrapped = reduxForm({
+export default reduxForm({
   form: "listItem",
   validate,
 })(ListItem);
-
-export default connect(null)(formWrapped);

@@ -4,9 +4,9 @@ import { Map, GoogleApiWrapper } from "google-maps-react";
 class BookSlot extends React.Component {
   render() {
     return (
-      <div className="ui form">
-        <input type="date" className="field" />
-        <div>
+      <div className="ui grid form">
+        <div className="eight wide column"><input type="date" className="field" /></div>
+        <div className="eight wide column">
           <Map
             google={this.props.google}
             zoom={8}
@@ -18,7 +18,7 @@ class BookSlot extends React.Component {
             initialCenter={{ lat: 47.444, lng: -122.176 }}
           />
         </div>
-        <div><button>Submit</button></div>
+        <button className="ui primary button">Submit</button>
       </div>
     );
   }
