@@ -8,6 +8,8 @@ import SearchItem from "./SearchItem";
 import CheckInsurance from "./CheckInsurance";
 import BookSlot from "./BookSlot";
 import Payments from "./Payments";
+import editItem from "./editItem";
+import itemPage from "./itemPage";
 
 class App extends React.Component {
   
@@ -23,7 +25,8 @@ class App extends React.Component {
             <Route path="/item/insurance/:id" exact component={CheckInsurance} />
             <Route path="/item/book/:id" exact component={BookSlot} />
             <Route path="/item/payments/:id" exact component={Payments} />
-
+            <Route path="/item/edit/:id" exact component={editItem}/>
+            <Route path="/item/:id" exact component={itemPage}/>
 
             {/* <Route path="" exact component={a} />
             <Route path="" exact component={b} />

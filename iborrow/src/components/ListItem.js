@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { setLocation } from "../actions/index";
+import { setLocation, addProduct } from "../actions/index";
 
 class ListItem extends React.Component {
   componentDidMount() {
@@ -37,6 +37,7 @@ class ListItem extends React.Component {
   };
 
   onSubmit = (formValues) => {
+    this.props.addProduct(formValues);
   };
 
   render() {
@@ -123,4 +124,6 @@ const formWrapped = reduxForm({
   validate,
 })(ListItem);
 
-export default connect(mapStateToProps, { setLocation })(formWrapped);
+export default connect(mapStateToProps, { setLocation, addProduct })(
+  formWrapped
+);
