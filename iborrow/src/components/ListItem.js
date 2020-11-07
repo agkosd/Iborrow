@@ -1,11 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { setLocation } from "../actions/index";
 
 class ListItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.lat = "";
-    this.long = "";
+  componentDidMount() {
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.props.setLocation(position.coords);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   renderError(meta) {
@@ -29,30 +36,7 @@ class ListItem extends React.Component {
     );
   };
 
-  getLat = () => {
-    window.navigator.geolocation.getCurrentPosition(
-      async(position) => {
-        return await position.coords.latitude;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  };
-
-  getLong = () => {
-    window.navigator.geolocation.getCurrentPosition(
-      (position) => {
-        return position.coords.longitude;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  };
-
   onSubmit = (formValues) => {
-    console.log(formValues);
   };
 
   render() {
@@ -97,6 +81,9 @@ class ListItem extends React.Component {
           component={this.renderInput}
           type="text"
         />
+        <h3>Your Location:</h3>
+        <h4>Latitude: {this.props.loc.lat}</h4>
+        <h4>Longitude: {this.props.loc.long}</h4>
 
         <button className="ui button primary">Submit</button>
       </form>
@@ -127,7 +114,13 @@ const validate = (formValues) => {
   return errors;
 };
 
-export default reduxForm({
+const mapStateToProps = (state) => {
+  return { loc: state.loc };
+};
+
+const formWrapped = reduxForm({
   form: "listItem",
   validate,
 })(ListItem);
+
+export default connect(mapStateToProps, { setLocation })(formWrapped);
