@@ -1,4 +1,3 @@
-import iborrow from "../apis/iborrow";
 import history from "../history";
 import axios from "axios";
 export const signIn = (userId) => {
@@ -44,8 +43,30 @@ export const getProducts = () => {
 
 export const getProduct = (id) => {
   return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3002/products/${id}`);
-    console.log("ehe");
-    console.log(response);
+    try {
+      const response = await axios.get(`http://localhost:3002/products/${id}`);
+      dispatch({ type: "GET_PRODUCT", payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const editProduct = (id, formValues) => {
+  return async (dispatch) => {
+    const response = await axios.patch(
+      `http://localhost:3002/products/${id}`,
+      formValues
+    );
+    dispatch({ type: "EDIT_STREAM", payload: response.data });
+    history.push("/");
+  };
+};
+
+export const deleteProduct = (id) => {
+  return async (dispatch) => {
+    await axios.delete(`http://localhost:3002/products/${id}`);
+    dispatch({ type: "DELETE_STREAM", payload: id });
+    history.push("/");
   };
 };
