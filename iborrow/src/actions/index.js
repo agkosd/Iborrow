@@ -47,5 +47,16 @@ export const getProduct = (id) => {
     const response = await axios.get(`http://localhost:3002/products/${id}`);
     console.log("ehe");
     console.log(response);
+    dispatch({ type: "GET_PRODUCT", payload: response.data });
+    return response.data;   //返回数据给调用者 return data
   };
+};
+
+//修改数据方法 edit method
+export const editProduct = (id,data) => {
+  return  async (dispatch) => {
+    const response = await axios.put(`http://localhost:3002/products/${id}`,data);
+    dispatch({ type: "PUT_PRODUCT", payload: response.data });
+    return response.data;
+  }
 };
