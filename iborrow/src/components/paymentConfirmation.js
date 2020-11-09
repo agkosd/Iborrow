@@ -5,7 +5,7 @@ import Modal from "./modal";
 import history from "../history";
 import { Link } from "react-router-dom";
 
-class DeleteItem extends React.Component {
+class Confirmation extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getProduct(id);
@@ -13,9 +13,9 @@ class DeleteItem extends React.Component {
 
   renderContent() {
     if (!this.props.item) {
-      return "Are you sure you want to delete this Product?";
+      return "Are you sure you want to purchase this Product?";
     } else {
-      return `Are you sure you want to delete this Product:${this.props.item.name}?`;
+      return `Are you sure you want to purchase this Product:${this.props.item.name}?`;
     }
   }
 
@@ -24,11 +24,12 @@ class DeleteItem extends React.Component {
       <React.Fragment>
         <button
           onClick={() => {
+            alert("Payment Successful Check Email For More Details!");
             this.props.deleteProduct(this.props.match.params.id);
           }}
-          className="ui negative button"
+          className="ui green button"
         >
-          Delete
+          Buy
         </button>
         <Link to="/item/search/" className="ui button">
           Cancel
@@ -44,7 +45,7 @@ class DeleteItem extends React.Component {
         content={this.renderContent()}
         actions={this.renderActions()}
         onDismiss={() => {
-          history.push("/item/search/");
+          history.push(`/item/payments/${this.props.match.params.id}`);
         }}
       />
     );
@@ -56,5 +57,5 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, { getProduct, deleteProduct })(
-  DeleteItem
+  Confirmation
 );

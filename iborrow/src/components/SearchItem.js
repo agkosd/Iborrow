@@ -1,13 +1,12 @@
-import React from "react";
+import React, { setState } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
 import { getProducts } from "../actions/index";
 import { Link } from "react-router-dom";
 
 class SearchItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = { value: "", term: "" };
   }
 
   componentDidMount() {
@@ -21,8 +20,10 @@ class SearchItem extends React.Component {
           <Link to={`/item/edit/${product.id}`} className="ui button primary">
             Edit
           </Link>
-          <Link to={`item/delete/${product.id}`} className="ui button negative">
-            {" "}
+          <Link
+            to={`/item/delete/${product.id}`}
+            className="ui button negative"
+          >
             Delete
           </Link>
         </div>
@@ -40,37 +41,55 @@ class SearchItem extends React.Component {
   };
 
   renderedList() {
-    return this.props.products.map((product) => {
-      return (
-        <div className="item" key={product.id}>
-          {this.renderSup(product)}
-          <i className="large middle aligned icon" src={product.url} />
-          <div className="content">
-            <Link to={`/item/${product.id}`} className="header">
-              {product.name}
-            </Link>
-            <div className="description">{product.description}</div>
+    if (this.state.term) {
+      return this.props.products.map((product) => {
+        if (product.name === this.state.term) {
+          return (
+            <div className="item" key={product.id}>
+              {this.renderSup(product)}
+              <i className="large middle aligned icon" src={product.url} />
+              <div className="content">
+                <Link to={`/item/${product.id}`} className="header">
+                  {product.name}
+                </Link>
+                <div className="description">{product.description}</div>
+              </div>
+            </div>
+          );
+        } else return "";
+      });
+    } else {
+      return this.props.products.map((product) => {
+        return (
+          <div className="item" key={product.id}>
+            {this.renderSup(product)}
+            <i className="large middle aligned icon" src={product.url} />
+            <div className="content">
+              <Link to={`/item/${product.id}`} className="header">
+                {product.name}
+              </Link>
+              <div className="description">{product.description}</div>
+            </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
+    }
   }
 
-  onSubmit = (formValues) => {
-    console.log(formValues);
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.getProducts();
   };
 
   render() {
     return (
-      <form
-        className="ui form"
-        onSubmit={this.props.handleSubmit(this.onSubmit)}
-      >
-        <Field
-          name="input"
-          component={this.renderInput}
-          label={"Item Name"}
-          initialValues={this.state.value}
+      <form className="ui form" onSubmit={this.onSubmit}>
+        <input
+          type="text"
+          onChange={(e) => {
+            this.setState({ term: e.target.value });
+          }}
+          value={this.state.term}
         />
         <button className="ui button primary">Search</button>
         <div className="ui relaxed divided list">{this.renderedList()}</div>
@@ -87,11 +106,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const formWrapped = reduxForm({
-  form: "searchItem",
-  initialValues: {
-    input: "hello",
-  },
-})(SearchItem);
-
-export default connect(mapStateToProps, { getProducts })(formWrapped);
+export default connect(mapStateToProps, { getProducts })(SearchItem);

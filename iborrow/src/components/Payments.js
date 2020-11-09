@@ -9,23 +9,17 @@ class Payments extends React.Component {
     this.props.getProduct(id);
   }
 
-  onClick() {
-    this.props.deleteProduct(this.props.match.params.id);
-  }
-
   render() {
     return (
       <div className="ui relaxed divided list">
         <div className="item">
           <div className="right floated content">
-            <div
+            <Link
+              to={`/item/paymentConfirmation/${this.props.match.params.id}`}
               className="ui button green"
-              onClick={() => {
-                this.onClick();
-              }}
             >
               Pay Now
-            </div>
+            </Link>
           </div>
           <i className="large credit card middle aligned icon "></i>
           <div className="content">
@@ -35,14 +29,12 @@ class Payments extends React.Component {
         </div>
         <div className="item">
           <div className="right floated content">
-            <div
+            <Link
+              to={`/item/paymentConfirmation/${this.props.match.params.id}`}
               className="ui button green"
-              onClick={() => {
-                this.onClick();
-              }}
             >
               Pay Now
-            </div>
+            </Link>
           </div>
           <i className="large money middle aligned icon "></i>
           <div className="content">
@@ -52,14 +44,12 @@ class Payments extends React.Component {
         </div>
         <div className="item">
           <div className="right floated content">
-            <div
+            <Link
+              to={`/item/paymentConfirmation/${this.props.match.params.id}`}
               className="ui button green"
-              onClick={() => {
-                this.onClick();
-              }}
             >
               Pay Now
-            </div>
+            </Link>
           </div>
           <i className="large paypal middle aligned icon "></i>
           <div className="content">
@@ -75,8 +65,8 @@ class Payments extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return "";
+const mapStateToProps = (state, ownProps) => {
+  return { item: state.prod[ownProps.match.params.id] };
 };
 
 export default connect(mapStateToProps, { getProduct, deleteProduct })(

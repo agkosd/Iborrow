@@ -10,6 +10,8 @@ import BookSlot from "./BookSlot";
 import Payments from "./Payments";
 import editItem from "./editItem";
 import itemPage from "./itemPage";
+import deleteItem from "./deleteItem";
+import paymentConfirmation from "./paymentConfirmation";
 
 class App extends React.Component {
   render() {
@@ -31,6 +33,9 @@ class App extends React.Component {
               <Route path="/item/payments/:id" exact component={Payments} />
               <Route path="/item/edit/:id" exact component={editItem} />
               <Route path="/item/:id" exact component={itemPage} />
+              <Route path="/item/delete/:id" exact component={deleteItem} />
+              <Route path="/item/paymentConfirmation/:id" exact component={paymentConfirmation} />
+
             </Switch>
           </div>
         </Router>
