@@ -26,8 +26,8 @@ class Header extends React.Component {
         <Link to="/" className="item">
           <h2>Iborrow App</h2>
         </Link>
-        {this.renderFunc()}
         <div className="right menu">
+          {this.renderFunc()}
           <GoogleAuth />
         </div>
       </div>
