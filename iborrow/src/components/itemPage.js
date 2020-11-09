@@ -31,8 +31,11 @@ class itemPage extends React.Component {
     } else {
       return (
         <div className="container">
-          <Link to={`/item/book/${product.id}`} className="ui button green">
-            Buy Now
+          <Link
+            to={`/item/insurance/${product.id}`}
+            className="ui button green"
+          >
+            Check Insurance
           </Link>
         </div>
       );

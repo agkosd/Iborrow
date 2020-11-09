@@ -2,8 +2,10 @@ import React from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import { connect } from "react-redux";
 import { getProduct } from "../actions/index";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { Link } from "react-router-dom";
 
 class BookSlot extends React.Component {
   componentDidMount() {
@@ -13,7 +15,6 @@ class BookSlot extends React.Component {
 
   renderMap() {
     if (this.props.loc) {
-      console.log("here");
       return (
         <Map
           google={this.props.google}
@@ -34,12 +35,33 @@ class BookSlot extends React.Component {
     }
   }
 
+  calValues() {
+    if (!this.props.from) {
+      return {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: "selection",
+      };
+    } else {
+      let x = new Date(this.props.from);
+      let y = new Date(this.props.till);
+      return {
+        startDate: new Date(this.props.from),
+        endDate: new Date(this.props.till),
+      };
+    }
+  }
+
   renderDates() {
     if (this.props.from) {
+      this.calValues();
       return (
         <div className="container">
           <h3>Availability</h3>
-          <Calendar />
+          <DateRangePicker
+            ranges={[this.calValues()]}
+            onChange={() => console.log("hello")}
+          />
         </div>
       );
     }
@@ -50,7 +72,15 @@ class BookSlot extends React.Component {
       <div className="ui grid form">
         <div className="eight wide column">{this.renderDates()}</div>
         <div className="eight wide column">{this.renderMap()}</div>
-        <button className="ui green button">Buy Now</button>
+        <Link
+          to={`/item/payments/${this.props.match.params.id}`}
+          className="ui green button"
+        >
+          Buy Now
+        </Link>
+        <Link to="/item/search" className="ui negative button">
+          Browse Other Items
+        </Link>
       </div>
     );
   }
@@ -58,7 +88,7 @@ class BookSlot extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   if (!state["prod"][ownProps.match.params.id]) {
-    return "";
+    return {};
   } else {
     return {
       loc: state["prod"][ownProps.match.params.id]["loc"],

@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const CheckInsurance = () => {
+const CheckInsurance = (props) => {
   return (
     <div className="ui container">
       <h1>TERMS AND CONDITIONS</h1>
@@ -38,8 +39,15 @@ const CheckInsurance = () => {
         consequat ac felis donec. Ultrices vitae auctor eu augue ut lectus arcu.
         At volutpat diam ut venenatis tellus in.
       </p>
-      <button className="ui button primary">Book Slot</button>
-      <button className="ui button red">Cancel</button>
+      <Link
+        to={`/item/book/${props.match.params.id}`}
+        className="ui green button"
+      >
+        Book Slot
+      </Link>
+      <Link to="/item/search" className="ui negative button">
+        Browse Other Items
+      </Link>
     </div>
   );
 };

@@ -1,32 +1,6 @@
 {
   "products": [
     {
-      "name": "aaaaa",
-      "price": "8",
-      "url": "aaaaaaaaa",
-      "from": "2020-11-07",
-      "till": "2020-11-09",
-      "description": "aaaaaaaaaa",
-      "loc": {
-        "lat": -33.8670283,
-        "long": 151.08208439999999
-      },
-      "id": 1
-    },
-    {
-      "name": "aaaaaaa",
-      "price": "6",
-      "url": "aaaaa",
-      "from": "2020-11-08",
-      "till": "2020-11-09",
-      "description": "aaaaaaa",
-      "loc": {
-        "lat": -33.8670283,
-        "long": 151.08208439999999
-      },
-      "id": 2
-    },
-    {
       "name": "edited item",
       "price": "20",
       "url": "aaaaaaaaaa",
