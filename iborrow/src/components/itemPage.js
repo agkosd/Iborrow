@@ -6,14 +6,12 @@ import { Link } from "react-router-dom";
 class itemPage extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    console.log(this.props.prod);
     this.props.getProduct(id);
   }
 
   renderSup() {
     const product = this.props.prod;
     const auth = this.props.auth;
-    console.log(auth);
     if (product.userId === auth.userId && auth.isSignedIn) {
       return (
         <div className="right floated content">

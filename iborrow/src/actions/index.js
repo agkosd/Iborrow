@@ -30,7 +30,6 @@ export const addProduct = (formValues) => {
       userId,
     });
     dispatch({ type: "ADD_PRODUCT", payload: response.data });
-    history.push("/");
   };
 };
 
