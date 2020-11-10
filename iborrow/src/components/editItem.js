@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getProduct, editProduct } from "../actions/index";
 import _ from "lodash";
 import ProductForm from "./productForm";
+import history from "../history";
 
 class EditItem extends React.Component {
   componentDidMount() {
@@ -11,6 +12,7 @@ class EditItem extends React.Component {
 
   onSubmit = (formValues) => {
     this.props.editProduct(this.props.match.params.id, formValues);
+    history.push(`/item/${this.props.match.params.id}`);
   };
 
   render() {
@@ -20,10 +22,7 @@ class EditItem extends React.Component {
     return (
       <div>
         <h3>Edit Product</h3>
-        <ProductForm 
-            initialValues={this.props.info }
-            onSubmit={this.onSubmit}
-        />
+        <ProductForm initialValues={this.props.info} onSubmit={this.onSubmit} />
       </div>
     );
   }
