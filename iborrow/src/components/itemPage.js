@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getProduct } from "../actions/index";
 import { Link } from "react-router-dom";
+import Comments from "./comments"
 
 class itemPage extends React.Component {
   componentDidMount() {
@@ -73,6 +74,8 @@ class itemPage extends React.Component {
             </div>
           </div>
           {this.renderSup()}
+          <Comments/>
+
         </div>
       );
     }
