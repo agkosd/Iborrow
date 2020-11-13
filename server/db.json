@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "name": "hiehfief",
+      "price": "7",
+      "url": "h bh",
+      "description": "bheirhbiherb",
+      "from": "2020-11-10",
+      "till": "2020-11-13",
+      "loc": {
+        "lat": -33.8670283,
+        "long": 151.08208439999999
+      },
+      "userId": "115979989764333927260",
+      "id": 10
+    },
+    {
+      "name": "Item 4",
+      "price": "8",
+      "url": "imaage url",
+      "from": "2020-11-11",
+      "till": "2020-11-21",
+      "description": "helo",
+      "loc": {
+        "lat": -33.8670283,
+        "long": 151.08208439999999
+      },
+      "userId": "115979989764333927260",
+      "id": 11
+    },
+    {
+      "name": "hello5",
+      "price": "6",
+      "url": "hihihihih",
+      "from": "2020-11-13",
+      "till": "2020-11-20",
+      "description": "hey there",
+      "loc": {
+        "lat": -33.8670283,
+        "long": 151.08208439999999
+      },
+      "userId": "115979989764333927260",
+      "id": 12
+    }
+  ]
+}
