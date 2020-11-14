@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/iborrow-deploy-temp/static/js/main.6aa73eaf.chunk.js",
+    "main.js.map": "/iborrow-deploy-temp/static/js/main.6aa73eaf.chunk.js.map",
+    "runtime-main.js": "/iborrow-deploy-temp/static/js/runtime-main.4ef69077.js",
+    "runtime-main.js.map": "/iborrow-deploy-temp/static/js/runtime-main.4ef69077.js.map",
+    "static/css/2.9229e6f1.chunk.css": "/iborrow-deploy-temp/static/css/2.9229e6f1.chunk.css",
+    "static/js/2.ce249f2b.chunk.js": "/iborrow-deploy-temp/static/js/2.ce249f2b.chunk.js",
+    "static/js/2.ce249f2b.chunk.js.map": "/iborrow-deploy-temp/static/js/2.ce249f2b.chunk.js.map",
+    "index.html": "/iborrow-deploy-temp/index.html",
+    "precache-manifest.c3db22e00729d6b2b65611beb318a752.js": "/iborrow-deploy-temp/precache-manifest.c3db22e00729d6b2b65611beb318a752.js",
+    "service-worker.js": "/iborrow-deploy-temp/service-worker.js",
+    "static/css/2.9229e6f1.chunk.css.map": "/iborrow-deploy-temp/static/css/2.9229e6f1.chunk.css.map",
+    "static/js/2.ce249f2b.chunk.js.LICENSE.txt": "/iborrow-deploy-temp/static/js/2.ce249f2b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4ef69077.js",
+    "static/css/2.9229e6f1.chunk.css",
+    "static/js/2.ce249f2b.chunk.js",
+    "static/js/main.6aa73eaf.chunk.js"
+  ]
+}
