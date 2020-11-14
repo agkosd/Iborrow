@@ -1,13 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getProduct } from "../actions/index";
+import { getProduct, addComment,getComment } from "../actions/index"; //import addcomment & getcomment
 import { Link } from "react-router-dom";
 
 class itemPage extends React.Component {
+//定义state=内容
+  constructor(props) {
+    super(props);
+    this.state = { content: '' }
+  }
+
+
   componentDidMount() {
     const id = this.props.match.params.id;
     console.log(this.props.prod);
     this.props.getProduct(id);
+    this.props.getComment(id);    //
   }
 
   renderSup() {
@@ -41,6 +49,71 @@ class itemPage extends React.Component {
       );
     }
   }
+
+  // 生成评论相关的内容_页面绘制
+  renderComment() {
+    const { comment } = this.props;
+    return (
+        <>
+          <div className="comment-list">
+            {
+              comment && comment.length > 0 &&
+              comment.map((item, index) => {
+                return (
+                    <div className="row comment-item" key={index}>
+                      <div className="col-1 item-heade">
+                        <div className="image-head" style={{ backgroundImage: `url('${item.image}')` }}></div>
+                      </div>
+                      <div className="col-7 ">
+                        <div className="row">
+                          <div className="item-name">{item.name}</div>
+                          <div className="item-create-time">{item.create_time}</div>
+                        </div>
+                        <div className="row">
+                          <div className="item-content">
+                            {item.content}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                )
+              })
+            }
+          </div>
+          <div className="addComment">
+            <div className="row">
+              <div className="col-1 text-right">Comment</div>
+              <div className="col-7">
+              <textarea className="text" placeholder="Please enter comment content" value={this.state.content} onChange={(e) => {
+                // this.state.content = e.target.value;
+                this.setState({ content: e.target.value })
+              }}></textarea>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-1"></div>
+              <div className="col-6">
+                <button className="ui button primary" onClick={this.handleAddComment.bind(this)}>Add</button>
+              </div>
+            </div>
+          </div>
+        </>
+    );
+  }
+
+  // 添加评论
+  handleAddComment() {
+    if (!this.state.content.trim()) {
+      return;
+    }
+    const ui = this.props.userInfo;
+    const { id } = this.props.match.params;
+    const data = { detail_id: id, ...ui, content: this.state.content, create_time: new Date() };
+    this.props.addComment(data).then(() => {
+      this.setState({ content: "" })
+    });
+  }
+
   render() {
     if (!this.props.prod) {
       return (
@@ -75,14 +148,20 @@ class itemPage extends React.Component {
             </div>
           </div>
           {this.renderSup()}
+          <div className="comment">   { /* aaa  */}
+            {this.renderComment()}
+          </div>
         </div>
       );
     }
   }
 }
 
+
+
+
 const mapStateToProps = (state, ownProps) => {
-  return { prod: state.prod[ownProps.match.params.id], auth: state.auth };
+  return { prod: state.prod[ownProps.match.params.id], auth: state.auth, userInfo:state.userInfo, comment:state.comment };
 };
 
-export default connect(mapStateToProps, { getProduct })(itemPage);
+export default connect(mapStateToProps, { getProduct, addComment,getComment })(itemPage);

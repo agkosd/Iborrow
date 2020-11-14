@@ -1,4 +1,3 @@
-import iborrow from "../apis/iborrow";
 import history from "../history";
 import axios from "axios";
 export const signIn = (userId) => {
@@ -44,19 +43,64 @@ export const getProducts = () => {
 
 export const getProduct = (id) => {
   return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3002/products/${id}`);
-    console.log("ehe");
-    console.log(response);
-    dispatch({ type: "GET_PRODUCT", payload: response.data });
-    return response.data;   //返回数据给调用者 return data
+    try {
+      const response = await axios.get(`http://localhost:3002/products/${id}`);
+      dispatch({ type: "GET_PRODUCT", payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
-//修改数据方法 edit method
-export const editProduct = (id,data) => {
-  return  async (dispatch) => {
-    const response = await axios.put(`http://localhost:3002/products/${id}`,data);
-    dispatch({ type: "PUT_PRODUCT", payload: response.data });
-    return response.data;
-  }
+export const editProduct = (id, formValues) => {
+  return async (dispatch) => {
+    const response = await axios.patch(
+        `http://localhost:3002/products/${id}`,
+        formValues
+    );
+    dispatch({ type: "EDIT_STREAM", payload: response.data });
+    history.push("/");
+  };
 };
+
+export const deleteProduct = (id) => {
+  return async (dispatch) => {
+    await axios.delete(`http://localhost:3002/products/${id}`);
+    dispatch({ type: "DELETE_STREAM", payload: id });
+    history.push("/");
+  };
+};
+
+// 保存当前google用户信息到 state里
+export const userLogin = (userInfo) => {
+  return { type: 'USER_INFO', payload: userInfo }
+}
+
+// 退出用户的时候，把当前用户信息清空
+export const userLogout = () => {
+  return { type: 'USER_INFO_CLEAR' }
+}
+// 获取评论 列表
+export const getComment = (id) => {
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3002/comments/?detail_id=${id}`);
+    const { data } = response;
+    if (!data) {
+      dispatch({ type: 'COMMENT_LIST', payload: [] })
+    } else {
+      dispatch({ type: 'COMMENT_LIST', payload: Array.isArray(data) ? data : [data] });
+    }
+    return data;
+  }
+}
+
+// 添加评论
+export const addComment = (data) => {
+  return async (dispatch) => {
+    const response = await axios.post(`http://localhost:3002/comments/`, data);
+    const { data: body } = response;
+
+    dispatch({ type: 'COMMENT_ADD', payload: body || data })
+    return body;
+  }
+}
